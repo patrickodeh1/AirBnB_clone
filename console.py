@@ -5,6 +5,8 @@ from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
+    """defines hbnb console"""
+
     prompt = "(hbnb) "
 
     def do_quit(self, arg):
