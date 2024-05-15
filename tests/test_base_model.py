@@ -7,7 +7,7 @@ class TestBaseModel(unittest.TestCase):
     def setup(self):
         """reload storage before each test"""
         self.storage = FileStorage()
-        self.storage = reload()
+        self.storage = FileStorage.reload()
 
     def tearDown(self):
         """saves storage after each test"""
