@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import unittest
 from datetime import datetime
 from models.base_model import BaseModel
@@ -7,7 +8,7 @@ class TestBaseModel(unittest.TestCase):
     def setup(self):
         """reload storage before each test"""
         self.storage = FileStorage()
-        self.storage = FileStorage.reload()
+        self.storage.reload()
 
     def tearDown(self):
         """saves storage after each test"""
@@ -31,7 +32,7 @@ class TestBaseModel(unittest.TestCase):
     def test_to_dict_method(self):
         """Test the to_dict method."""
         base_model = BaseModel()
-        obj_dict = base_model.to_dict
+        obj_dict = base_model.to_dict()
 
         self.assertIn('__class__', obj_dict)
         self.assertEqual(obj_dict['created_at'], base_model.created_at.isoformat())

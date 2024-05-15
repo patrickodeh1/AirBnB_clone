@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 """base_model.py"""
 import uuid
 from datetime import datetime
