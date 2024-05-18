@@ -20,7 +20,7 @@ The AirBnB clone project is divided into several stages, each focusing on differ
 
 1. Clone the repository:
 
-   git clone https://github.com/yourusername/AirBnB_clone.git
+   git clone https://github.com/patrickodeh1/AirBnB_clone.git
 
 2. Navigate to the project directory:
 
