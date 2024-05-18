@@ -51,7 +51,7 @@ class TestUser(unittest.TestCase):
         obj_dict = user.to_dict()
 
         self.assertIn('__class__', obj_dict)
-        self.assertEqual(obj_dict['__class__'], 'BaseModel')
+        self.assertEqual(obj_dict['__class__'], 'User')
         self.assertEqual(obj_dict['created_at'], user.created_at.isoformat())
         self.assertEqual(obj_dict['updated_at'], user.updated_at.isoformat())
 
@@ -59,7 +59,7 @@ class TestUser(unittest.TestCase):
         """Test the __str__ method"""
         user = User()
 
-        expected_str = "[BaseModel] ({}) {}".format(user.id, user.__dict__)
+        expected_str = "[User] ({}) {}".format(user.id, user.__dict__)
         self.assertEqual(str(user), expected_str)
 
     def test_init_method_with_kwargs(self):

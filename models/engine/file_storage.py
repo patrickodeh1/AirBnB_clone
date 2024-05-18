@@ -46,18 +46,15 @@ class FileStorage:
             pass
 
 
-classes = {
-    "BaseModel": BaseModel,
-    "User": User
-}
-
-
 def reload_class(name):
     """deserializes ..."""
-    module_name, class_name = classes[name].rsplit('.', 1)
-    module = __import__(module_name, fromlist=[class_name])
-    cls = getattr(module, class_name)
-    return cls
+    if name == "BaseModel":
+        from models.base_model import BaseModel
+        return BaseModel
+    elif name == "User":
+        from models.user import User
+        return User
+    return None
 
 
 def reload(self):
