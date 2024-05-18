@@ -1,3 +1,7 @@
+#!/usr/bin/python3
+"""defines the test for user.py"""
+
+
 import unittest
 from models.engine.file_storage import FileStorage
 from models import storage

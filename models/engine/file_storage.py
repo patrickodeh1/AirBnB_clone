@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""file_storage.py"""
+
+
 import json
 import os
 from models.base_model import BaseModel
@@ -48,9 +51,11 @@ classes = {
 }
 
 def reload_class(name):
+    """deserializes ..."""
     return classes[name]
 
 def reload(self):
+    """deserializes ..."""
     try:
         with open(self.__file_path, "r") as file:
             obj_dict = json.load(file)
