@@ -3,8 +3,6 @@
 
 import json
 import os
-from models.base_model import BaseModel
-from models.user import User
 
 
 class FileStorage:
@@ -56,7 +54,10 @@ classes = {
 
 def reload_class(name):
     """deserializes ..."""
-    return classes[name]
+    module_name, class_name = classes[name].rsplit('.', 1)
+    module = __import__(module_name, fromlist=[class_name])
+    cls = getattr(module, class_name)
+    return cls
 
 
 def reload(self):
