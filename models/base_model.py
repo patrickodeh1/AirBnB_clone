@@ -3,12 +3,13 @@
 
 import uuid
 from datetime import datetime
-from models import storage
+from models import storage, register class
+
 
 class BaseModel():
     """ defines all common attributes for other classes"""
 
-    def __init__(self, **kwargs):
+    def __init__(self, *args, **kwargs):
         """Initializes a new BaseModel instance"""
 
         if kwargs:
@@ -43,3 +44,6 @@ class BaseModel():
         obj_dict['updated_at'] = self.updated_at.isoformat()
 
         return obj_dict
+
+
+register_class(BaseModel)
