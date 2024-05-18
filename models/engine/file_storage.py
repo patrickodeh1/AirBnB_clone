@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 import json
 import os
+from models.base_model import BaseModel
+from models.user import User
 
 class FileStorage:
     """Handles the storage of all objects in a JSON file"""
@@ -39,3 +41,23 @@ class FileStorage:
                     self.__objects[key] = obj_instance
         except Exception as e:
             pass
+
+classes = {
+    "BaseModel": BaseModel,
+    "User": User
+}
+
+def reload_class(name):
+    return classes[name]
+
+def reload(self):
+    try:
+        with open(self.__file_path, "r") as file:
+            obj_dict = json.load(file)
+            for key, value in obj_dict.items():
+                cls = reload_class(value["__class__"])
+                self.__objects[key] = cls(**value)
+    except FileNotFoundError:
+        pass
+
+    FileStorage.reload = reload
