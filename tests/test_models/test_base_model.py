@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 """test cases for basemodel"""
 
-
 import unittest
 from datetime import datetime
 from models.base_model import BaseModel
 from models import storage
 from models.engine.file_storage import FileStorage
+
 
 class TestBaseModel(unittest.TestCase):
 
@@ -44,14 +44,17 @@ class TestBaseModel(unittest.TestCase):
 
         self.assertIn('__class__', obj_dict)
         self.assertEqual(obj_dict['__class__'], 'BaseModel')
-        self.assertEqual(obj_dict['created_at'], base_model.created_at.isoformat())
-        self.assertEqual(obj_dict['updated_at'], base_model.updated_at.isoformat())
+        self.assertEqual(
+                obj_dict['created_at'], base_model.created_at.isoformat())
+        self.assertEqual(
+                obj_dict['updated_at'], base_model.updated_at.isoformat())
 
     def test_str_method(self):
         """Test the __str__ method"""
         base_model = BaseModel()
 
-        expected_str = "[BaseModel] ({}) {}".format(base_model.id, base_model.__dict__)
+        expected_str = "[BaseModel] ({}) {}".format(
+                base_model.id, base_model.__dict__)
         self.assertEqual(str(base_model), expected_str)
 
     def test_init_method_with_kwargs(self):
@@ -64,14 +67,17 @@ class TestBaseModel(unittest.TestCase):
         base_model = BaseModel(**data)
 
         self.assertEqual(base_model.id, '123')
-        self.assertEqual(base_model.created_at, datetime.fromisoformat(data['created_at']))
-        self.assertEqual(base_model.updated_at, datetime.fromisoformat(data['updated_at']))
+        self.assertEqual(base_model.created_at, datetime.fromisoformat(
+            data['created_at']))
+        self.assertEqual(base_model.updated_at, datetime.fromisoformat(
+            data['updated_at']))
 
     def test_new_method(self):
         """test the new method of FileStorage"""
         base_model = BaseModel()
         key = 'BaseModel.' + base_model.id
         self.assertIn(key, self.storage.all())
+
 
 if __name__ == '__main__':
     unittest.main()

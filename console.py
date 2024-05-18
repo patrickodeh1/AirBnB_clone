@@ -1,12 +1,11 @@
 #!/usr/bin/python3
 """console.py"""
-
-
 import cmd
 import sys
 from models.base_model import BaseModel
-from models import storage
 from models.user import User
+from models import storage
+
 
 class HBNBCommand(cmd.Cmd):
     """defines hbnb console"""
@@ -79,7 +78,8 @@ class HBNBCommand(cmd.Cmd):
         if arg:
             try:
                 class_name = globals([arg])
-                objs = [str(obj) for obj in storage.all().values() if isinstance(obj, class_name)]
+                objs = [str(obj) for obj in storage.all().values()
+                        if isinstance(obj, class_name)]
             except KeyError:
                 print("** class doesn't exist **")
                 return

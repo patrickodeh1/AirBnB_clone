@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 """file_storage.py"""
 
-
 import json
 import os
 from models.base_model import BaseModel
 from models.user import User
+
 
 class FileStorage:
     """Handles the storage of all objects in a JSON file"""
@@ -24,7 +24,8 @@ class FileStorage:
 
     def save(self):
         """Serializes __objects to the JSON file"""
-        objects_dict = {key: obj.to_dict() for key, obj in self.__objects.items()}
+        objects_dict = {key: obj.to_dict(
+            ) for key, obj in self.__objects.items()}
         with open(self.__file_path, 'w') as file:
             json.dump(objects_dict, file)
 
@@ -38,21 +39,25 @@ class FileStorage:
                 objects_dict = json.load(file)
                 for key, value in objects_dict.items():
                     class_name = key.split('.')[0]
-                    module = __import__('models.' + class_name.lower(), fromlist=[class_name])
+                    module = __import__('models.' + class_name.lower(
+                        ), fromlist=[class_name])
                     cls = getattr(module, class_name)
                     obj_instance = cls(**value)
                     self.__objects[key] = obj_instance
         except Exception as e:
             pass
 
+
 classes = {
     "BaseModel": BaseModel,
     "User": User
 }
 
+
 def reload_class(name):
     """deserializes ..."""
     return classes[name]
+
 
 def reload(self):
     """deserializes ..."""

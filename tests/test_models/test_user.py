@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 """defines the test for user.py"""
 
-
 import unittest
 from models.engine.file_storage import FileStorage
 from models import storage
 from models.user import User
 from datetime import datetime
+
 
 class TestUser(unittest.TestCase):
     """Testcase for user"""
@@ -77,8 +77,10 @@ class TestUser(unittest.TestCase):
         user = User(**data)
 
         self.assertEqual(user.id, '123')
-        self.assertEqual(user.created_at, datetime.fromisoformat(data['created_at']))
-        self.assertEqual(user.updated_at, datetime.fromisoformat(data['updated_at']))
+        self.assertEqual(
+                user.created_at, datetime.fromisoformat(data['created_at']))
+        self.assertEqual(
+                user.updated_at, datetime.fromisoformat(data['updated_at']))
         self.assertEqual(user.email, 'myemail@example.com')
         self.assertEqual(user.password, 'password')
         self.assertEqual(user.first_name, 'Test')
@@ -89,6 +91,7 @@ class TestUser(unittest.TestCase):
         user = User()
         key = 'User.' + user.id
         self.assertIn(key, self.storage.all())
+
 
 if __name__ == '__main__':
     unittest.main()
