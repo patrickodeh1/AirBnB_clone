@@ -3,7 +3,7 @@
 
 import uuid
 from datetime import datetime
-from models import storage, register class
+from models import storage, register_class
 
 
 class BaseModel():
