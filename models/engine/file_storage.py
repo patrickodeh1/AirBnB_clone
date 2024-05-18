@@ -1,6 +1,10 @@
+#!/usr/bin/python3
 import json
+import os
 
 class FileStorage:
+    """Handles the storage of all objects in a JSON file"""
+
     __file_path = "file.json"
     __objects = {}
 
@@ -15,22 +19,23 @@ class FileStorage:
 
     def save(self):
         """Serializes __objects to the JSON file"""
-        objects_dict = {}
-        for key, value in self.__objects.items():
-            objects_dict[key] = value.to_dict()
+        objects_dict = {key: obj.to_dict() for key, obj in self.__objects.items()}
         with open(self.__file_path, 'w') as file:
             json.dump(objects_dict, file)
 
     def reload(self):
         """Deserializes the JSON file to __objects"""
+        if not os.path.exists(self.__file_path):
+            return
+
         try:
             with open(self.__file_path, 'r') as file:
                 objects_dict = json.load(file)
                 for key, value in objects_dict.items():
-                    class_name, obj_id = key.split('.')
-                    module = __import__('models.' + class_name, fromlist=[class_name])
+                    class_name = key.split('.')[0]
+                    module = __import__('models.' + class_name.lower(), fromlist=[class_name])
                     cls = getattr(module, class_name)
                     obj_instance = cls(**value)
                     self.__objects[key] = obj_instance
-        except FileNotFoundError:
+        except Exception as e:
             pass
