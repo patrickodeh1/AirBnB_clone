@@ -5,21 +5,20 @@ import unittest
 from datetime import datetime
 from models.base_model import BaseModel
 from models import storage
-from models.engine.file_storage import FileStorage
+import models
 
 
 class TestBaseModel(unittest.TestCase):
 
     def setUp(self):
         """reload storage before each test"""
-        self.storage = FileStorage()
-        self.storage.reload()
-        storage.all().clear()
+        models.storage.reload()
+        models.storage.all().clear()
 
     def tearDown(self):
         """saves storage after each test"""
-        self.storage.save()
-        storage.all().clear()
+        models.storage.save()
+        models.storage.all().clear()
 
     def test_attributes(self):
         """Test if attributes are initialized correctly"""
@@ -76,7 +75,7 @@ class TestBaseModel(unittest.TestCase):
         """test the new method of FileStorage"""
         base_model = BaseModel()
         key = 'BaseModel.' + base_model.id
-        self.assertIn(key, self.storage.all())
+        self.assertIn(key, models.storage.all())
 
 
 if __name__ == '__main__':

@@ -2,15 +2,22 @@
 """defines the test for user.py"""
 
 import unittest
-from models.engine.file_storage import FileStorage
-from models import storage
 from models.user import User
-from datetime import datetime
 from models.base_model import BaseModel
+import models
 
 
 class TestUser(unittest.TestCase):
     """Tests cases for User"""
+    def setUp(self):
+        """Reload storage before each test"""
+        models.storage.reload()
+        models.storage.all().clear()
+
+    def tearDown(self):
+        """Clear storage after each test"""
+        models.storage.save()
+        models.storage.all().clear()
 
     def test_user_inherits_from_base_model(self):
         """
@@ -54,16 +61,16 @@ class TestUser(unittest.TestCase):
         Test setting and getting the first_name attribute.
         """
         user = User()
-        user.first_name = "John"
-        self.assertEqual(user.first_name, "John")
+        user.first_name = "Dave"
+        self.assertEqual(user.first_name, "Dave")
 
     def test_user_last_name(self):
         """
         Test setting and getting the last_name attribute.
         """
         user = User()
-        user.last_name = "Doe"
-        self.assertEqual(user.last_name, "Doe")
+        user.last_name = "Bell"
+        self.assertEqual(user.last_name, "Bell")
 
 
 if __name__ == '__main__':

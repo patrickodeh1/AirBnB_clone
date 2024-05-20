@@ -8,14 +8,21 @@ storage = FileStorage()
 storage.reload()
 
 
-class_registry = {}
+def classes():
+    from models.base_model import BaseModel
+    from models.user import User
+    from models.state import State
+    from models.city import City
+    from models.amenity import Amenity
+    from models.place import Place
+    from models.review import Review
 
-
-def register_class(cls):
-    """Register a class in the class registry"""
-    class_registry[cls.__name__] = cls
-
-
-def get_class(name):
-    """get a class from the class registry"""
-    return class_registry.get(name)
+    return {
+        "BaseModel": BaseModel,
+        "User": User,
+        "State": State,
+        "City": City,
+        "Amenity": Amenity,
+        "Place": Place,
+        "Review": Review
+    }
