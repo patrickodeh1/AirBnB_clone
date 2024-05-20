@@ -86,16 +86,27 @@ class HBNBCommand(cmd.Cmd):
         models.storage.save()
 
     def do_all(self, arg):
-        args = arg.split()
-        if not args:
-            objs = models.storage.all()
-        elif args[0] in models.storage.classes():
-            objs = {k: v for k, v in models.storage.all().items(
-                ) if k.startswith(args[0] + ".")}
-        else:
+        """Retrieve all instances of a class by using: <class name>.all()"""
+        if class_name not in models.classes:
             print("** class doesn't exist **")
             return
-        print([str(obj) for obj in objs.values()])
+
+        all_objects = models.storage.all()
+        instances = [str(obj) for key, obj in all_objects.items(
+            ) if key.startswith(class_name + '.')]
+        print(instances)
+
+    def do_count(self, class_name):
+        """Retrieve the number of instances of a class by using:
+            <class name>.count()"""
+        if class_name not in models.classes:
+            print("** class doesn't exist **")
+            return
+
+        all_objects = models.storage.all()
+        count = sum(1 for key in all_objects if key.startswith(
+            class_name + '.'))
+        print(count)
 
     def do_update(self, arg):
         args = arg.split()
@@ -126,6 +137,22 @@ class HBNBCommand(cmd.Cmd):
             attribute_value = attribute_type(attribute_value)
         setattr(instance, attribute_name, attribute_value)
         instance.save()
+
+    def default(self, line):
+        """Override the default method to handle class-specific commands."""
+        args = line.split('.')
+        if len(args) == 2:
+            class_name = args[0]
+            command = args[1].strip('()')
+
+            if command == 'all':
+                self.do_all(class_name)
+            elif command == 'count':
+                self.do_count(class_name)
+            else:
+                print(f"*** Unknown syntax: {line}")
+        else:
+            print(f"*** Unknown syntax: {line}")
 
 
 if __name__ == "__main__":
