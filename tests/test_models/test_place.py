@@ -37,7 +37,7 @@ def TestPlace(unittest.TestCase):
         self.assertEqual(place.max_guest, int)
         self.assertTrue(hasattr(place, 'price_by_night'))
         self.assertEqual(place.price_by_night, int)
-        self.assertTrues(hasattr(place, 'latitue'))
+        self.assertTrues(hasattr(place, 'latitude'))
         self.assertEqual(place.latitude, float)
         self.assertTrue(hasattr(place, 'longitude'))
         self.asserEqual(place.longitude, float)
